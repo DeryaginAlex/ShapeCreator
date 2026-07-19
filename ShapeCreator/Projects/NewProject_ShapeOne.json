@@ -1,0 +1,18 @@
+{
+  "shapes": [
+    {
+      "id": "00000000000000000000000000000003",
+      "name": "вытянутый ромб",
+      "shapeType": "Rhombus",
+      "coordinateStart": {
+        "x": 400,
+        "y": 50
+      },
+      "coordinateFinish": {
+        "x": 500,
+        "y": 100
+      },
+      "isActive": true
+    }
+  ]
+}

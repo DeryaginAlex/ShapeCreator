@@ -1,0 +1,88 @@
+{
+  "shapes": [
+    {
+      "id": "fd5a8689f81443b7ac67523a5df7f22f",
+      "name": "маленький круг",
+      "shapeType": "Circle",
+      "coordinateStart": {
+        "x": 50,
+        "y": 50
+      },
+      "coordinateFinish": {
+        "x": 100,
+        "y": 100
+      },
+      "isActive": true
+    },
+    {
+      "id": "a0f141c473a5496da15c5841702cf254",
+      "name": "большой круг",
+      "shapeType": "Circle",
+      "coordinateStart": {
+        "x": 200,
+        "y": 100
+      },
+      "coordinateFinish": {
+        "x": 300,
+        "y": 200
+      },
+      "isActive": true
+    },
+    {
+      "id": "9cf26de8a24f4ca6ad5fc5eda6f56d41",
+      "name": "невидимый круг",
+      "shapeType": "Circle",
+      "coordinateStart": {
+        "x": 50,
+        "y": 150
+      },
+      "coordinateFinish": {
+        "x": 100,
+        "y": 200
+      },
+      "isActive": false
+    },
+    {
+      "id": "6a1bfaa0c34147f78e71c2ed684cadab",
+      "name": "квадрат",
+      "shapeType": "Square",
+      "coordinateStart": {
+        "x": 100,
+        "y": 50
+      },
+      "coordinateFinish": {
+        "x": 150,
+        "y": 100
+      },
+      "isActive": true
+    },
+    {
+      "id": "eef623c12b854cbfa7935f928f702e06",
+      "name": "вытянутый ромб",
+      "shapeType": "Rhombus",
+      "coordinateStart": {
+        "x": 400,
+        "y": 50
+      },
+      "coordinateFinish": {
+        "x": 500,
+        "y": 100
+      },
+      "isActive": true
+    },
+    {
+      "id": "5012073f323147a3b40683c79ff627b7",
+      "name": "ромб",
+      "shapeType": "Rhombus",
+      "coordinateStart": {
+        "x": 500,
+        "y": 100
+      },
+      "coordinateFinish": {
+        "x": 600,
+        "y": 200
+      },
+      "isActive": true
+    }
+  ]
+}
