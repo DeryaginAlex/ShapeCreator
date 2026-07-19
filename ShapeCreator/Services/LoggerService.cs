@@ -5,7 +5,7 @@ namespace ShapeCreator.Services;
 
 public class LoggerService : ILoggerService
 {
-    private readonly object _lock = new object();
+    private readonly object _lock = new();
     private string LogPath => Path.Combine("logs", $"{DateTime.Now:yyyy-MM-dd}.log");
 
     private void CreateLogFile()
@@ -31,7 +31,7 @@ public class LoggerService : ILoggerService
 
             lock (_lock)
             {
-                File.AppendAllText(LogPath, $@"{DateTime.Now:HH:mm:ss} - [{level}] {message}{Environment.NewLine}");
+                File.AppendAllText(LogPath, $"{DateTime.Now:HH:mm:ss} - [{level}] {message}{Environment.NewLine}");
             }
         }
         catch (Exception ex)
@@ -48,7 +48,7 @@ public class LoggerService : ILoggerService
 
             lock (_lock)
             {
-                File.AppendAllText(LogPath, $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}{Environment.NewLine}");
+                File.AppendAllText(LogPath, $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}{Environment.NewLine}");
             }
         }
         catch (Exception ex)

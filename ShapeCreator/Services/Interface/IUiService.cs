@@ -27,7 +27,7 @@ public interface IUiService
     /// <returns>
     /// <c>isValid = true</c> это успешно выбран файл для открытия
     /// <c>isValid = false</c> это ошибка при открытии файла
-    /// <c>isValid = null</c> это операция прерванна польхователем
+    /// <c>isValid = null</c> это операция прервана пользователем
     /// </returns>
     public (bool? isValid, string errorMessage, string path) OpenFileDialog();
 
@@ -37,7 +37,7 @@ public interface IUiService
     /// <returns>
     /// <c>isValid = true</c> это успешно выбран файл для открытия
     /// <c>isValid = false</c> это ошибка при открытии файла
-    /// <c>isValid = null</c> это операция прерванна польхователем
+    /// <c>isValid = null</c> это операция прервана пользователем
     /// </returns>
     public (bool? isValid, string errorMessage, string path) SaveFileDialog();
 }

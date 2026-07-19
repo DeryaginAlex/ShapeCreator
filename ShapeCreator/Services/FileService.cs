@@ -12,8 +12,7 @@ public class FileService(ILoggerService loggerService, IUiService uiService) : I
     private readonly ILoggerService loggerService = loggerService;
     private readonly IUiService uiService = uiService;
 
-
-    private JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
+    private JsonSerializerOptions JsonSerializerOptions => new JsonSerializerOptions
     {
         WriteIndented = true,
         PropertyNameCaseInsensitive = true,
@@ -41,7 +40,7 @@ public class FileService(ILoggerService loggerService, IUiService uiService) : I
         Root result = new Root();
         try
         {
-            result = JsonSerializer.Deserialize<Root>(json, JsonSerializerOptions);
+            result = JsonSerializer.Deserialize<Root>(json, JsonSerializerOptions) ?? new Root();
             return (true, string.Empty, result);
         }
         catch (Exception ex)

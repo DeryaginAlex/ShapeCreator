@@ -45,18 +45,18 @@ public partial class App : Application
         DispatcherUnhandledException += (sender, args) =>
         {
             args.Handled = true;
-            loggerService?.Error($"DispatcherUnhandledException", args.Exception);
+            loggerService?.Error("DispatcherUnhandledException", args.Exception);
         };
 
         AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
         {
             var exception = args.ExceptionObject as Exception;
-            loggerService?.Error($"UnhandledException", exception ?? new Exception("Unknown"));
+            loggerService?.Error("UnhandledException", exception ?? new Exception("Unknown"));
         };
 
         TaskScheduler.UnobservedTaskException += (sender, args) =>
         {
-            loggerService?.Error($"UnobservedTaskException", args.Exception);
+            loggerService?.Error("UnobservedTaskException", args.Exception);
         };
     }
 

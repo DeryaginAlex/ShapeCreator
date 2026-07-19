@@ -49,13 +49,13 @@ public class ValidateService(ILoggerService loggerService) : IValidateService
 
         if (duplicate.Count == 1)
         {
-            stringBuilder.Append($"Найденны дубликат имени: \"{duplicate.Single()}\"{Environment.NewLine}");
+            stringBuilder.Append($"Найдены дубликат имени: \"{duplicate.Single()}\"{Environment.NewLine}");
         }
 
         if (duplicate.Count > 1)
         {
             var duplicates = string.Join(", ", duplicate);
-            stringBuilder.Append($"Найденны дубликатs именён: \"{duplicates}\"{Environment.NewLine}");
+            stringBuilder.Append($"Найдены дубликаты именён: \"{duplicates}\"{Environment.NewLine}");
         }
 
         var message = stringBuilder.ToString();

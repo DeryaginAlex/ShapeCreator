@@ -22,7 +22,7 @@ namespace ShapeCreator.Tests
             mockUiService = new Mock<IUiService>();
 
             configService = new ConfigService(
-                mockLoggerService.Object, 
+                mockLoggerService.Object,
                 mockFileService.Object,
                 mockUiService.Object);
         }

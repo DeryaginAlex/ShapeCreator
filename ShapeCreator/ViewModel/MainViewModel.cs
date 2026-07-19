@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Win32;
 using ShapeCreator.Models;
 using ShapeCreator.Services.Interface;
 using System.Collections.ObjectModel;
@@ -44,7 +43,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
         configService.LoadTestProject();
         var shapes = configService.GetTestProject().Shapes;
 
-        ReLoadeShapes(shapes);
+        ReloadShapes(shapes);
         ReDrawCanvas();
         Subscriptions();
     }
@@ -72,7 +71,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
         }
     }
 
-    public void ReLoadeShapes(List<Shape> shapes)
+    public void ReloadShapes(List<Shape> shapes)
     {
         if (shapes == null || !shapes.Any())
         {
@@ -80,10 +79,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
             return;
         }
 
-        if (Shapes == null)
-        {
-            Shapes = new ObservableCollection<Shape> { };
-        }
+        Shapes ??= new ObservableCollection<Shape> { };
 
         Shapes.Clear();
 
@@ -122,7 +118,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
         (bool isValid, string errorMessage, Root root) = fileService.GetRootFromFile(emptyProjectPath);
         if (isValid)
         {
-            ReLoadeShapes(root.Shapes);
+            ReloadShapes(root.Shapes);
             ReDrawCanvas();
             Subscriptions();
         }
@@ -136,7 +132,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
     private void OpenProject()
     {
         (bool? isValidOpenFileDialog, string errorMessage, string path) = uiService.OpenFileDialog();
-        
+
         if (isValidOpenFileDialog == false)
         {
             uiService.ShowMessage("Ошибка при открытии проекта", errorMessage);
@@ -148,7 +144,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
             (bool isValidGetRootFromFile, errorMessage, Root root) = fileService.GetRootFromFile(path);
             if (isValidGetRootFromFile)
             {
-                ReLoadeShapes(root.Shapes);
+                ReloadShapes(root.Shapes);
                 ReDrawCanvas();
                 Subscriptions();
             }
@@ -174,7 +170,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
         (bool? isValidSave, string errorMessage) = fileService.SaveToFile(root);
         if (isValidSave == true)
         {
-            uiService.ShowMessage("Сохранение", "Сохранение выполненно успешно");
+            uiService.ShowMessage("Сохранение", "Сохранение выполнено успешно");
             return;
         }
         if (isValidSave == false)

@@ -11,7 +11,7 @@ public interface IFileService
     /// <returns>
     /// <c>isValid = true</c> файл успешно сохранён
     /// <c>isValid = false</c>  файл не сохранён из за ошибки
-    /// <c>isValid = null</c> это операция прерванна пользователем
+    /// <c>isValid = null</c> это операция прервана пользователем
     /// <see cref="string"/> - сообщение об ошибке
     /// </returns>
     public (bool? isValid, string errorMessage) SaveToFile(Root root);

@@ -25,12 +25,12 @@ public class UiService(ILoggerService loggerService) : IUiService
     /// <summary>
     /// Цвет фигур
     /// </summary>
-    SolidColorBrush ShapeColor => new SolidColorBrush(Colors.DarkBlue);
+    SolidColorBrush ShapeColor => new(Colors.DarkBlue);
 
     /// <summary>
     /// Цвет осей и делений
     /// </summary>
-    SolidColorBrush AxisColor => new SolidColorBrush(Colors.Black);
+    SolidColorBrush AxisColor => new(Colors.Black);
 
     /// <summary>
     /// Размер названия фигуры
@@ -138,29 +138,29 @@ public class UiService(ILoggerService loggerService) : IUiService
     /// </summary>
     private List<UIElement> GetAxis(double canvasWidth, double canvasHeight)
     {
-        var result = new List<UIElement>();
-
-        // x-axis
-        result.Add(new Line
+        var result = new List<UIElement>
         {
-            X1 = Offset,
-            Y1 = canvasHeight - Offset,
-            X2 = canvasWidth - Offset,
-            Y2 = canvasHeight - Offset,
-            Stroke = AxisColor,
-            StrokeThickness = 1
-        });
-
-        // y-axis
-        result.Add(new Line
-        {
-            X1 = Offset,
-            Y1 = canvasHeight - Offset,
-            X2 = Offset,
-            Y2 = Offset,
-            Stroke = AxisColor,
-            StrokeThickness = 1
-        });
+            // x-axis
+            new Line
+            {
+                X1 = Offset,
+                Y1 = canvasHeight - Offset,
+                X2 = canvasWidth - Offset,
+                Y2 = canvasHeight - Offset,
+                Stroke = AxisColor,
+                StrokeThickness = 1
+            },
+            // y-axis
+            new Line
+            {
+                X1 = Offset,
+                Y1 = canvasHeight - Offset,
+                X2 = Offset,
+                Y2 = Offset,
+                Stroke = AxisColor,
+                StrokeThickness = 1
+            }
+        };
 
         // x-division
         int stepX = (int)((canvasWidth - (2 * Offset)) / DivisionStep);
@@ -238,7 +238,7 @@ public class UiService(ILoggerService loggerService) : IUiService
             };
 
             bool? result = saveFileDialog.ShowDialog();
-            
+
             return result == true
                 ? (true, string.Empty, saveFileDialog.FileName)
                 : (null, "Пользователь отменил открытие файла", string.Empty);
