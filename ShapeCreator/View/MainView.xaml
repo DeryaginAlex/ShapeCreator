@@ -23,8 +23,8 @@
                 <MenuItem Header="Сохранить как" Command="{Binding SaveProjectCommand}"/>
             </MenuItem>
             <MenuItem Header="Логирование">
-                <MenuItem Header="Сегодняшние логи"/>
-                <MenuItem Header="Папка с логами"/>
+                <MenuItem Header="Сегодняшние логи" Command="{Binding OpenTodayLogsCommand}"/>
+                <MenuItem Header="Папка с логами" Command="{Binding OpenLogFolderCommand}"/>
             </MenuItem>
         </Menu>
 

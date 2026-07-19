@@ -26,4 +26,8 @@ public interface IFileService
     /// <see cref="string"/> - модель
     /// </returns>
     public (bool, string, Root) GetRootFromFile(string path);
+
+    public (bool isValid, string errorMessage) OpenLogFolder();
+
+    public (bool isValid, string errorMessage) OpenTodayLogs();
 }

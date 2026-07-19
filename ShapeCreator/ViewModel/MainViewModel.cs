@@ -107,6 +107,7 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
                 shape.CoordinateFinish.PropertyChanged += PropertyChanged;
             }
         }
+
         ReDrawCanvas();
     }
 
@@ -173,9 +174,26 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
             uiService.ShowMessage("Сохранение", "Сохранение выполнено успешно");
             return;
         }
+
         if (isValidSave == false)
         {
             uiService.ShowMessage("Ошибка при сохранении файла", errorMessage);
+        }
+    }
+
+    [RelayCommand]
+    private void OpenLogFolder()
+    {
+        fileService.OpenLogFolder();
+    }
+
+    [RelayCommand]
+    private void OpenTodayLogs()
+    {
+        (bool isValid, string errorMessage) = fileService.OpenTodayLogs();
+        if (!isValid)
+        {
+            uiService.ShowMessage("Ошибка при открытии логов", errorMessage);
         }
     }
 }

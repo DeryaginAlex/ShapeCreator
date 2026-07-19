@@ -1,9 +1,11 @@
-﻿using ShapeCreator.Models;
+﻿using System.Diagnostics;
+using ShapeCreator.Models;
 using ShapeCreator.Services.Interface;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
+using System.Windows;
 
 namespace ShapeCreator.Services;
 
@@ -77,6 +79,53 @@ public class FileService(ILoggerService loggerService, IUiService uiService) : I
         }
         catch (Exception ex)
         {
+            return (false, ex.Message);
+        }
+    }
+
+    public (bool isValid, string errorMessage) OpenLogFolder()
+    {
+        try
+        {
+            string logFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+
+            if (!Directory.Exists(logFolder))
+            {
+                Directory.CreateDirectory(logFolder);
+            }
+
+            Process.Start("explorer.exe", logFolder);
+            return (true, string.Empty);
+        }
+        catch (Exception ex)
+        {
+            loggerService.Error("OpenTodayLogs Error", ex);
+            return (false, ex.Message);
+        }
+    }
+
+    public (bool isValid, string errorMessage) OpenTodayLogs()
+    {
+        try
+        {
+            string logFile = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "logs",
+                $"{DateTime.Now:yyyy-MM-dd}.log");
+
+            if (!File.Exists(logFile))
+            {
+                return (false, $"Не найден файл {logFile}");
+            }
+
+            Process.Start("explorer.exe", logFile);
+
+            return (true, string.Empty);
+
+        }
+        catch (Exception ex)
+        {
+            loggerService.Error("OpenTodayLogs Error", ex);
             return (false, ex.Message);
         }
     }
