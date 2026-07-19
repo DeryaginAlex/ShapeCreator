@@ -20,4 +20,24 @@ public interface IUiService
     /// <param name="title">Заголовок</param>
     /// <param name="message">Сообщение</param>
     public void ShowMessage(string title, string message);
+
+    /// <summary>
+    /// Открывает диалоговое окно для выбора json файла проекта
+    /// </summary>
+    /// <returns>
+    /// <c>isValid = true</c> это успешно выбран файл для открытия
+    /// <c>isValid = false</c> это ошибка при открытии файла
+    /// <c>isValid = null</c> это операция прерванна польхователем
+    /// </returns>
+    public (bool? isValid, string errorMessage, string path) OpenFileDialog();
+
+    /// <summary>
+    /// Открывает диалоговое окно для сохранения json файла проекта
+    /// </summary>
+    /// <returns>
+    /// <c>isValid = true</c> это успешно выбран файл для открытия
+    /// <c>isValid = false</c> это ошибка при открытии файла
+    /// <c>isValid = null</c> это операция прерванна польхователем
+    /// </returns>
+    public (bool? isValid, string errorMessage, string path) SaveFileDialog();
 }

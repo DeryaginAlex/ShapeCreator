@@ -135,51 +135,51 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
     [RelayCommand]
     private void OpenProject()
     {
-        OpenFileDialog openFileDialog = new OpenFileDialog
+        (bool? isValidOpenFileDialog, string errorMessage, string path) = uiService.OpenFileDialog();
+        
+        if (isValidOpenFileDialog == false)
         {
-            Title = "Выберите файл",
-            Filter = "JSON files (*.json)|*.json",
-            InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects")
-        };
-
-        bool? result = openFileDialog.ShowDialog();
-        if (result != true)
-        {
+            uiService.ShowMessage("Ошибка при открытии проекта", errorMessage);
             return;
         }
 
-        string filePath = openFileDialog.FileName;
-
-        (bool isValid, string errorMessage, Root root) = fileService.GetRootFromFile(filePath);
-        if (isValid)
+        if (isValidOpenFileDialog == true)
         {
-            ReLoadeShapes(root.Shapes);
-            ReDrawCanvas();
-            Subscriptions();
-        }
-        else
-        {
-            uiService.ShowMessage("Ошибка при открытии файла", errorMessage);
+            (bool isValidGetRootFromFile, errorMessage, Root root) = fileService.GetRootFromFile(path);
+            if (isValidGetRootFromFile)
+            {
+                ReLoadeShapes(root.Shapes);
+                ReDrawCanvas();
+                Subscriptions();
+            }
+            else
+            {
+                uiService.ShowMessage("Ошибка при открытии файла", errorMessage);
+            }
         }
     }
 
     [RelayCommand]
     private void SaveProject()
     {
-        (bool IsValid, string validMessage) = validateService.IsValid(Shapes.ToList());
+        (bool isValid, string validMessage) = validateService.IsValid(Shapes.ToList());
 
-        if (!IsValid)
+        if (!isValid)
         {
             uiService.ShowMessage("Ошибка валидации", validMessage);
             return;
         }
 
         Root root = new Root() { Shapes = Shapes.ToList() };
-        (bool isValid, string saveMessage) = fileService.SaveToFile(root);
-        if (IsValid)
+        (bool? isValidSave, string errorMessage) = fileService.SaveToFile(root);
+        if (isValidSave == true)
         {
-            uiService.ShowMessage("Сохранение", "Созранение выполненно успешно");
+            uiService.ShowMessage("Сохранение", "Сохранение выполненно успешно");
             return;
+        }
+        if (isValidSave == false)
+        {
+            uiService.ShowMessage("Ошибка при сохранении файла", errorMessage);
         }
     }
 }

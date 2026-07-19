@@ -4,13 +4,14 @@ using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.IO;
-using Microsoft.Win32;
 
 namespace ShapeCreator.Services;
 
-public class FileService(ILoggerService loggerService) : IFileService
+public class FileService(ILoggerService loggerService, IUiService uiService) : IFileService
 {
     private readonly ILoggerService loggerService = loggerService;
+    private readonly IUiService uiService = uiService;
+
 
     private JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
     {
@@ -51,35 +52,29 @@ public class FileService(ILoggerService loggerService) : IFileService
         }
     }
 
-    public (bool isValid, string message) SaveToFile(Root root)
+    public (bool? isValid, string errorMessage) SaveToFile(Root root)
     {
         try
         {
-            var directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects");
+            (bool? isValid, string errorMessage, string path) = uiService.SaveFileDialog();
 
-            string json = JsonSerializer.Serialize(root, JsonSerializerOptions);
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            if (isValid == false)
             {
-                Title = "Сохранить файл",
-                Filter = "JSON files (*.json)|*.json",
-                InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects"),
-            };
-
-
-            bool? result = saveFileDialog.ShowDialog();
-            if (result != true)
-            {
-                return (false, "В диалоговм окне нажали \"Отмена\"");
+                return (false, errorMessage);
             }
 
-            var path = saveFileDialog.FileName;
+            if (isValid == true)
+            {
+                string json = JsonSerializer.Serialize(root, JsonSerializerOptions);
+                File.Create(path).Close();
 
-            File.Create(path).Close();
+                File.WriteAllText(path, json);
 
-            File.WriteAllText(path, json);
+                return (true, string.Empty);
+            }
 
-            return (true, string.Empty);
+            return (null, string.Empty);
+
         }
         catch (Exception ex)
         {

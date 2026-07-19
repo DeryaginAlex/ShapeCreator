@@ -21,11 +21,14 @@ namespace ShapeCreator.Tests
             mockFileService = new Mock<IFileService>();
             mockUiService = new Mock<IUiService>();
 
-            configService = new ConfigService(mockLoggerService.Object, mockFileService.Object, mockUiService.Object);
+            configService = new ConfigService(
+                mockLoggerService.Object, 
+                mockFileService.Object,
+                mockUiService.Object);
         }
 
         [Test]
-        public void ConfigService_IsValid_Valid_Test()
+        public void ConfigService_LoadTestProject_Valid_Test()
         {
             mockFileService
                 .Setup(x => x.GetRootFromFile(It.IsAny<string>()))
@@ -37,7 +40,7 @@ namespace ShapeCreator.Tests
         }
 
         [Test]
-        public void ConfigService_IsValid_InValid_Test()
+        public void ConfigService_LoadTestProject_InValid_Test()
         {
             mockFileService
                 .Setup(x => x.GetRootFromFile(It.IsAny<string>()))

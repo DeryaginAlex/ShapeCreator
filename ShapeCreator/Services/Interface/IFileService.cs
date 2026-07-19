@@ -9,10 +9,12 @@ public interface IFileService
     /// </summary>
     /// <param name="root">Модель которую хотим сохранить</param>
     /// <returns>
-    /// <see cref="bool"/> - модель успешно сохранена?
+    /// <c>isValid = true</c> файл успешно сохранён
+    /// <c>isValid = false</c>  файл не сохранён из за ошибки
+    /// <c>isValid = null</c> это операция прерванна пользователем
     /// <see cref="string"/> - сообщение об ошибке
     /// </returns>
-    public (bool isValid, string message) SaveToFile(Root root);
+    public (bool? isValid, string errorMessage) SaveToFile(Root root);
 
     /// <summary>
     /// Получаем модель из файла

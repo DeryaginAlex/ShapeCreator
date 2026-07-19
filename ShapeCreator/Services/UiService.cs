@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace ShapeCreator.Services;
-
 
 public class UiService(ILoggerService loggerService) : IUiService
 {
@@ -136,7 +136,7 @@ public class UiService(ILoggerService loggerService) : IUiService
     /// <summary>
     /// Ось абсцисс и ось ординат
     /// </summary>
-    public List<UIElement> GetAxis(double canvasWidth, double canvasHeight)
+    private List<UIElement> GetAxis(double canvasWidth, double canvasHeight)
     {
         var result = new List<UIElement>();
 
@@ -200,5 +200,53 @@ public class UiService(ILoggerService loggerService) : IUiService
     public void ShowMessage(string title, string message)
     {
         MessageBox.Show(message, title);
+    }
+
+    public (bool? isValid, string errorMessage, string path) OpenFileDialog()
+    {
+        try
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Выберите файл",
+                Filter = "JSON files (*.json)|*.json",
+                InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects")
+            };
+
+            bool? result = openFileDialog.ShowDialog();
+
+            return result == true
+                ? (true, string.Empty, openFileDialog.FileName)
+                : (null, "Пользователь отменил открытие файла", string.Empty);
+        }
+        catch (Exception ex)
+        {
+            loggerService.Error("OpenFileDialog Error", ex);
+            return (false, ex.Message, string.Empty);
+        }
+    }
+
+    public (bool? isValid, string errorMessage, string path) SaveFileDialog()
+    {
+        try
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Title = "Сохранить файл",
+                Filter = "JSON files (*.json)|*.json",
+                InitialDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Projects"),
+            };
+
+            bool? result = saveFileDialog.ShowDialog();
+            
+            return result == true
+                ? (true, string.Empty, saveFileDialog.FileName)
+                : (null, "Пользователь отменил открытие файла", string.Empty);
+        }
+        catch (Exception ex)
+        {
+            loggerService.Error("OpenFileDialog Error", ex);
+            return (false, ex.Message, string.Empty);
+        }
     }
 }
