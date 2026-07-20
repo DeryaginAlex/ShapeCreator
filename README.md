@@ -12,7 +12,7 @@
 
 * MVVM
 
-* Nuget: CommunityToolkit.Mvvm
+* Nuget: CommunityToolkit.Mvvm, Nunit, Moq
 
 ### Архитектура
 
@@ -33,6 +33,12 @@
 Нажмите клавишу `Enter`
 
 ### Удаление существующей фигуры
+
+Измените значения в полях `Name`, `ShapeType`, `Start X`, `Start Y`, `End X`, `End Y`, `Actice`
+
+Нажмите клавишу `Enter`
+
+### Изменение существующей фигуры
 
 Выберите строку
 
