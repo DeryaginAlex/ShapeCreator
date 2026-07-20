@@ -48,7 +48,7 @@
 
 Валидация полей происходит только при попытке сохранения проекта
 
-<img width="800" alt="image" src="https://github.com/user-attachments/assets/1bccd438-18bd-42f0-8866-485a847ecb77" />
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/f6014b3a-539d-46ce-8efc-5d547104e27f" />
 
 ### JSON Schema
 
