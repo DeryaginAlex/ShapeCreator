@@ -249,4 +249,25 @@ public class UiService(ILoggerService loggerService) : IUiService
             return (false, ex.Message, string.Empty);
         }
     }
+
+    public bool SaveQuestionDialog()
+    {
+        try
+        {
+            MessageBoxResult dialogResult = MessageBox.Show(
+                "Сохранить текущий проект?",
+                "Сохранение проекта",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            return dialogResult == MessageBoxResult.Yes;
+        }
+        catch (Exception ex)
+        {
+            loggerService.Error("SaveQuestionDialog Error", ex);
+            return false;
+        }
+    }
+
 }

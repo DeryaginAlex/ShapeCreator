@@ -40,4 +40,9 @@ public interface IUiService
     /// <c>isValid = null</c> это операция прервана пользователем
     /// </returns>
     public (bool? isValid, string errorMessage, string path) SaveFileDialog();
+
+    /// <summary>
+    /// Открывает диалоговое окно с вопросом сохранить проект
+    /// </summary>
+    public bool SaveQuestionDialog();
 }

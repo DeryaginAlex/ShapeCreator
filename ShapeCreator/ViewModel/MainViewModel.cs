@@ -39,7 +39,6 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
         this.validateService = validateService;
         this.fileService = fileService;
 
-
         configService.LoadTestProject();
         var shapes = configService.GetTestProject().Shapes;
 
@@ -114,6 +113,12 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
     [RelayCommand]
     private void CreateNewProject()
     {
+        var confirmation = uiService.SaveQuestionDialog();
+        if (confirmation)
+        {
+            fileService.SaveToFile(new Root { Shapes = Shapes.ToList() });
+        }
+
         string emptyProjectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "EmptyProject.json");
 
         (bool isValid, string errorMessage, Root root) = fileService.GetRootFromFile(emptyProjectPath);
@@ -132,6 +137,12 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
     [RelayCommand]
     private void OpenProject()
     {
+        var confirmation = uiService.SaveQuestionDialog();
+        if (confirmation)
+        {
+            fileService.SaveToFile(new Root { Shapes = Shapes.ToList() });
+        }
+
         (bool? isValidOpenFileDialog, string errorMessage, string path) = uiService.OpenFileDialog();
 
         if (isValidOpenFileDialog == false)
@@ -194,6 +205,15 @@ public partial class MainViewModel : ObservableObject, INotifyPropertyChanged
         if (!isValid)
         {
             uiService.ShowMessage("Ошибка при открытии логов", errorMessage);
+        }
+    }
+
+    public void Closing()
+    {
+        var confirmation = uiService.SaveQuestionDialog();
+        if (confirmation)
+        {
+            fileService.SaveToFile(new Root { Shapes = Shapes.ToList() });
         }
     }
 }
